@@ -47,6 +47,7 @@ export default class Siema {
   static mergeSettings(options) {
     const settings = {
       breakpoints: false,
+      wrapper: false,
       selector: '.siema',
       duration: 200,
       easing: 'ease-out',
@@ -154,7 +155,7 @@ export default class Siema {
   }
 
   createParents(length) {
-    const wrapper = document.getElementById('siema_wrapper');
+    const wrapper = document.getElementById(this.config.wrapper);
 
     for (let i = 0; i < length; i++) {
       const breakpointDiv = document.createElement('div');
