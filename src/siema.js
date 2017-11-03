@@ -165,7 +165,7 @@ export default class Siema {
   }
 
   removeParent() {
-    document.querySelector('.siema').parentNode.removeChild(document.querySelector('.siema'));
+    document.querySelector(this.config.selector).parentNode.removeChild(document.querySelector(this.config.selector));
   }
 
   /**
