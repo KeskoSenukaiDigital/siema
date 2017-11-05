@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      body { margin: 25px 20% 0; }
+      img  { width: 100%; }
+
+      @media ( min-width: 767px ) {
+        .carousel_1 { display: none; }
+        .carousel_4 { display: none; }
+      }
+
+      @media ( max-width: 767px ) {
+        body { margin: 25px 20px 0; }
+        .carousel_2 { display: none; }
+        .carousel_3 { display: none; }
+      }
+    </style>
+
+    <script src="dist/siema.min.js"></script>
+  </head>
+  <body>
+
+  <div id="siema_wrapper">
+    <div class="siema_1">
+      <img alt='' src="images/1.svg" />
+      <img alt='' src="images/2.svg" />
+      <img alt='' src="images/1.svg" />
+      <img alt='' src="images/2.svg" />
+    </div>
+
+    <button class="prev">prev</button>
+    <button class="next">next</button>
+
+  </div>
+
+  <div id="siema_wrapper_2">
+    <div class="siema_2">
+      <img alt='' src="images/3.svg" />
+      <img alt='' src="images/4.svg" />
+      <img alt='' src="images/3.svg" />
+      <img alt='' src="images/4.svg" />
+    </div>
+
+    <button class="prev">prev</button>
+    <button class="next">next</button>
+
+  </div>
+
+    <script>
+      new Siema({
+        'selector': '.siema_1',
+        'wrapper': 'siema_wrapper',
+        'breakpoints': [
+          {
+            'selector': '.carousel_1',
+            'items': 1
+          },
+          {
+            'selector': '.carousel_2',
+            'items': 3
+          }
+        ]
+      });
+
+      new Siema({
+        'selector': '.siema_2',
+        'wrapper': 'siema_wrapper_2',
+        'breakpoints': [
+          {
+            'selector': '.carousel_3',
+            'items': 1
+          },
+          {
+            'selector': '.carousel_4',
+            'items': 3
+          }
+        ]
+      });
+
+    </script>
+  </body>
+</html>
+

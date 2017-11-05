@@ -29,6 +29,11 @@ export default class Siema {
       this[method] = this[method].bind(this);
     });
 
+    if (this.config.breakpoints) {
+      this.buildDivs();
+      this.removeParent();
+    }
+
     // Build markup and apply required styling to elements
     this.init();
   }
@@ -41,6 +46,8 @@ export default class Siema {
    */
   static mergeSettings(options) {
     const settings = {
+      breakpoints: false,
+      wrapper: false,
       selector: '.siema',
       duration: 200,
       easing: 'ease-out',
@@ -122,6 +129,43 @@ export default class Siema {
     this.selector.removeEventListener('mousemove', this.mousemoveHandler);
   }
 
+  buildDivs() {
+    this.breakpointsLength = Object.keys(this.config.breakpoints).length;
+    const container = {};
+
+    this.createParents(this.breakpointsLength);
+
+    for (let i = 0; i < this.breakpointsLength; i++) {
+      const breakpointSelector = document.querySelector(this.config.breakpoints[i].selector);
+
+      for (let ii = 0; ii < this.innerElements.length; ii++) {
+        breakpointSelector.innerHTML += this.innerElements[ii].outerHTML;
+      }
+
+      container['siema_' + i] = new Siema({
+        selector: this.config.breakpoints[i].selector,
+        perPage: this.config.breakpoints[i].items
+      });
+
+      const wrapper = document.getElementById(this.config.wrapper);
+      wrapper.querySelector('.prev').addEventListener('click', function() { container['siema_' + i].prev(); }, false);
+      wrapper.querySelector('.next').addEventListener('click', function() { container['siema_' + i].next(); }, false);
+    }
+  }
+
+  createParents(length) {
+    const wrapper = document.getElementById(this.config.wrapper);
+
+    for (let i = 0; i < length; i++) {
+      const breakpointDiv = document.createElement('div');
+      breakpointDiv.className = this.config.breakpoints[i].selector.substring(1);
+      wrapper.appendChild(breakpointDiv);
+    }
+  }
+
+  removeParent() {
+    document.querySelector(this.config.selector).parentNode.removeChild(document.querySelector(this.config.selector));
+  }
 
   /**
    * Builds the markup and attaches listeners to required events.
