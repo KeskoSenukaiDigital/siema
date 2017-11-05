@@ -150,6 +150,34 @@ export default class Siema {
       const wrapper = document.getElementById(this.config.wrapper);
       wrapper.querySelector('.prev').addEventListener('click', function() { container['siema_' + i].prev(); }, false);
       wrapper.querySelector('.next').addEventListener('click', function() { container['siema_' + i].next(); }, false);
+  
+      document.addEventListener('DOMContentLoaded', this.draggingFix, false);
+    }
+  }
+
+  draggingFix() {
+    const links = document.getElementsByTagName('a');
+    let dragging = false;
+
+    for (let i = 0; i < links.length; i++) {
+      let href = ''
+      links[i].addEventListener('mousedown', function() {
+        dragging = false;
+        href = this.getAttribute('href');
+      }, false);
+
+      links[i].addEventListener('mousemove', function() { dragging = true; }, false);
+
+      links[i].addEventListener('mouseup', function() {
+        let wasDragging = dragging;
+        dragging = false;
+
+        if(wasDragging) {
+          let tag = this;
+          tag.removeAttribute('href');
+          setTimeout( function() { tag.setAttribute('href', href) }, 0);
+        }
+      }, false);
     }
   }
 
