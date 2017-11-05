@@ -147,10 +147,9 @@ export default class Siema {
         perPage: this.config.breakpoints[i].items
       });
 
-      if (this.config.breakpoints[i].navigation) {
-        document.querySelector('.prev').addEventListener('click', function() { container['siema_' + i].prev(); }, false);
-        document.querySelector('.next').addEventListener('click', function() { container['siema_' + i].next(); }, false);
-      }
+      const wrapper = document.getElementById(this.config.wrapper);
+      wrapper.querySelector('.prev').addEventListener('click', function() { container['siema_' + i].prev(); }, false);
+      wrapper.querySelector('.next').addEventListener('click', function() { container['siema_' + i].next(); }, false);
     }
   }
 
